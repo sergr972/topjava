@@ -39,11 +39,10 @@ public class UserMealsUtil {
         List<UserMealWithExcess> result = new ArrayList<>();
         for (UserMeal meal : meals) {
             LocalDateTime dateTime = meal.getDateTime();
-            if (!TimeUtil.isBetweenHalfOpen(dateTime.toLocalTime(), startTime, endTime)) {
-                continue;
+            if (TimeUtil.isBetweenHalfOpen(dateTime.toLocalTime(), startTime, endTime)) {
+                result.add(new UserMealWithExcess(dateTime, meal.getDescription(), meal.getCalories(),
+                        totalCalories.get(dateTime.toLocalDate()) > caloriesPerDay));
             }
-            result.add(new UserMealWithExcess(dateTime, meal.getDescription(), meal.getCalories(),
-                    totalCalories.get(dateTime.toLocalDate()) > caloriesPerDay));
         }
         return result;
     }
