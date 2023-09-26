@@ -68,21 +68,27 @@ public class UserMealsUtil {
                 .collect(Collectors.toList());
     }
 
-
     public static List<UserMealWithExcessOptional2> filteredByStreamsOptional2(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
-        Map<LocalDate, Integer> totalCaloriesPerDate = new HashMap<>();
+        Map<LocalDate, Integer> sumCaloriesPerDay = new HashMap<>();
         Map<LocalDate, AtomicBoolean> booleanMaps = new HashMap<>();
 
-        return meals.stream()
-                .peek(x -> {
-                    LocalDate localDate = x.getDateTime().toLocalDate();
-                    totalCaloriesPerDate.merge(localDate, x.getCalories(), Integer::sum);
-                    booleanMaps.putIfAbsent(localDate, new AtomicBoolean());
-                    booleanMaps.get(localDate).set(totalCaloriesPerDate.get(localDate) > caloriesPerDay);
-                })
-                .filter(x -> isBetweenHalfOpen(x.getDateTime().toLocalTime(), startTime, endTime))
-                .map(x -> new UserMealWithExcessOptional2(x.getDateTime(), x.getDescription(), x.getCalories(),
-                        booleanMaps.get(x.getDateTime().toLocalDate())))
-                .collect(Collectors.toList());
+        List<UserMealWithExcessOptional2> mealsWithExcess = new ArrayList<>();
+        meals.forEach(meal -> {
+            LocalDate localDate = meal.getDateTime().toLocalDate();
+            AtomicBoolean wrap = booleanMaps.computeIfAbsent(localDate, date -> new AtomicBoolean());
+            Integer dailyCalories = sumCaloriesPerDay.merge(localDate, meal.getCalories(), Integer::sum);
+            if (dailyCalories > caloriesPerDay) {
+                wrap.set(true);
+            }
+            if (isBetweenHalfOpen(meal.getDateTime().toLocalTime(), startTime, endTime)) {
+                mealsWithExcess
+                        .add(new UserMealWithExcessOptional2(
+                                meal.getDateTime(),
+                                meal.getDescription(),
+                                meal.getCalories(),
+                                wrap));
+            }
+        });
+        return mealsWithExcess;
     }
 }
