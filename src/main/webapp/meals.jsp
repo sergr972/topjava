@@ -35,15 +35,12 @@
         <th>Description</th>
         <th>Calories</th>
     </tr>
-    <c:forEach var="mealTo" items="${mealToList}">
-        <tr>
-            <c:set var="td_color" scope="session" value="#008000FF"/>
-            <c:if test="${mealTo.excess == true}">
-                <c:set var="td_color" scope="session" value="#FF0000"/>
-            </c:if>
-            <td style="color:${td_color};"><c:out value="${mealTo.dateTime.format(formatter)}"/></td>
-            <td style="color:${td_color};"><c:out value="${mealTo.description}"/></td>
-            <td style="color:${td_color};"><c:out value="${mealTo.calories}"/></td>
+    <c:forEach var="meal" items="${mealToList}">
+        <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>
+        <tr style="color: ${meal.excess? 'green': 'red'}">
+            <td>${meal.dateTime.format(formatter)}</td>
+            <td>${meal.description}</td>
+            <td>${meal.calories}</td>
         </tr>
     </c:forEach>
 </table>
