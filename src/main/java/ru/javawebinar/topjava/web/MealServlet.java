@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 public class MealServlet extends HttpServlet {
     public static final int CALORIES_PER_DAY = 2000;
     private static final Logger log = LoggerFactory.getLogger(MealServlet.class);
-    MealStorage mealStorage;
+    private MealStorage mealStorage;
 
     @Override
     public void init() throws ServletException {
@@ -27,11 +27,10 @@ public class MealServlet extends HttpServlet {
         log.info("init");
     }
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String operation = request.getParameter("action");
-        switch (operation == null ? "null" : operation) {
+        String action = request.getParameter("action");
+        switch (action == null ? "null" : action) {
             case "delete":
                 String mealId = request.getParameter("id");
                 log.info("Delete meal: {} ", mealId);
@@ -69,7 +68,7 @@ public class MealServlet extends HttpServlet {
         String mealId = (request.getParameter("id"));
         final Meal meal = new Meal(mealId == null || mealId.isEmpty() ? null : Integer.parseInt(mealId), dateTime, description, calories);
         log.info("doPost {}", meal);
-        mealStorage.create(meal);
+        mealStorage.save(meal);
         response.sendRedirect("meals");
     }
 }

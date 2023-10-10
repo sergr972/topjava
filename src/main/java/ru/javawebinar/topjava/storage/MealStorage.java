@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MealStorage {
 
-    Meal create(Meal meal);
+    Meal save(Meal meal);
 
     Meal read(int id);
 
