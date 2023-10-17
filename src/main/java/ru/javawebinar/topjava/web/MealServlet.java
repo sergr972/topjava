@@ -84,7 +84,7 @@ public class MealServlet extends HttpServlet {
                 log.info("getAllByDate: startDate: {} startTime: {} endDate: {}  endTime: {}",
                         startDate, startTime, endDate, endTime);
                 request.setAttribute("meals",
-                        controller.getAllByDate(startDate, startTime, endDate, endTime));
+                        controller.getAllFiltered(startDate, startTime, endDate, endTime));
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
             case "all":
