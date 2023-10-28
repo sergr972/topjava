@@ -72,7 +72,7 @@ public class MealServiceTest {
     }
 
     @Test
-    public void deleteWrongId() {
+    public void deleteNotFound() {
         assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND, USER_ID));
     }
 
