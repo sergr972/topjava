@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -58,7 +59,7 @@ public class MealServiceTest {
     public void update() {
         Meal updated = getUpdated();
         service.update(updated, ADMIN_ID);
-        assertMatch(service.get(adminMeal1.getId(), ADMIN_ID), updated);
+        assertMatch(service.get(adminMeal1.getId(), ADMIN_ID), getUpdated());
     }
 
     @Test
@@ -82,7 +83,28 @@ public class MealServiceTest {
     }
 
     @Test
-    public void updateInvalidAuthorization() {
+    public void updateNotOwn() {
         assertThrows(NotFoundException.class, () -> service.update(meal1, ADMIN_ID));
+    }
+
+    @Test
+    public void getNotOwn() {
+        assertThrows(NotFoundException.class, () -> service.get(MEAL1_ID, ADMIN_ID));
+    }
+
+    @Test
+    public void deleteNotOwn() {
+        assertThrows(NotFoundException.class, () -> service.delete(MEAL1_ID, ADMIN_ID));
+    }
+
+    @Test
+    public void getBetweenWithNullDates() {
+        assertMatch(service.getBetweenInclusive(null, null, USER_ID), meals);
+    }
+
+    @Test
+    public void duplicateDateTimeCreate() {
+        assertThrows(DataAccessException.class, () ->
+                service.create(new Meal(null, meal1.getDateTime(), "duplicate", 1000), USER_ID));
     }
 }
