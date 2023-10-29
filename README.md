@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/05ef1fe4b1424a7db7df6f30a2be8293)](https://app.codacy.com/gh/sergr972/topjava?utm_source=github.com&utm_medium=referral&utm_content=sergr972/topjava&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1505b59550bf456bb941722abd739a73)](https://app.codacy.com/gh/sergr972/topjava/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 ===============================
 Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), DataTables, jQuery + plugins, Java 8 Stream and Time API и хранением в базах данных Postgresql и HSQLDB.
