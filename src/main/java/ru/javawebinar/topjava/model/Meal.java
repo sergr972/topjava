@@ -16,11 +16,13 @@ import java.time.LocalTime;
                 "WHERE m.user.id=:userId AND m.dateTime >= :startDateTime AND m.dateTime < :endDateTime ORDER BY m.dateTime DESC"),
 })
 @Entity
-@Table(name = "meal", schema = "public", catalog = "topjava")
+@Table(name = "meal", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"},
+        name = "meal_unique_user_datetime_idx")})
 public class Meal extends AbstractBaseEntity {
     public static final String DELETE = "Meal.delete";
     public static final String ALL_SORTED = "Meal.getAllSorted";
     public static final String GET_BETWEEN = "Meal.getBetween";
+
     @Column(name = "date_time", nullable = false)
     @NotNull
     private LocalDateTime dateTime;
