@@ -37,7 +37,7 @@ public abstract class AbstractServiceTest {
     public Stopwatch stopwatch = TimingRules.STOPWATCH;
 
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     public boolean isJpaProfile() {
         return Arrays.stream(environment.getActiveProfiles()).noneMatch(Profiles.JDBC::equals);
