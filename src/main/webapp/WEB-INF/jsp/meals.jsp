@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
@@ -12,7 +11,6 @@
     <h3><spring:message code="meal.title"/></h3>
 
     <form method="get" action="meals/filter">
-        <input type="hidden" name="action" value="filter">
         <dl>
             <dt><spring:message code="meal.startDate"/>:</dt>
             <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
