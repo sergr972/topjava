@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.util.ValidationUtil;
 
 import java.util.*;
 
@@ -41,6 +42,7 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     @Transactional
     public User save(User user) {
+        ValidationUtil.validate(user);
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
         if (user.isNew()) {
@@ -49,7 +51,7 @@ public class JdbcUserRepository implements UserRepository {
             insertRoles(user);
         } else {
             if (namedParameterJdbcTemplate.update("""
-                       UPDATE users SET name=:name, email=:email, password=:password, 
+                       UPDATE users SET name=:name, email=:email, password=:password,
                        registered=:registered, enabled=:enabled, calories_per_day=:caloriesPerDay WHERE id=:id
                     """, parameterSource) == 0) {
                 return null;
@@ -110,7 +112,7 @@ public class JdbcUserRepository implements UserRepository {
     private User setRoles(User u) {
         if (u != null) {
             List<Role> roles = jdbcTemplate.queryForList("SELECT role FROM user_role WHERE user_id=?", Role.class, u.getId());
-        u.setRoles(roles);
+            u.setRoles(roles);
         }
         return u;
     }
