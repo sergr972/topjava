@@ -25,13 +25,13 @@ public class AdminRestController extends AbstractUserController {
     @Override
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
-        return super.getWithMeals(id);
+        return super.get(id);
     }
 
     @Override
     @GetMapping("/{id}/with-meals")
     public User getWithMeals(@PathVariable int id) {
-        return super.get(id);
+        return super.getWithMeals(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

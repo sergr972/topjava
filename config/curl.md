@@ -15,3 +15,6 @@
 
 #### filter Meals
 `curl -s "http://localhost:8080/topjava/rest/profile/meals/filter?startDate=2020-01-30&startTime=13:00:00&endDate=2020-01-31&endTime=20:00:00"`
+
+#### filter Meals with Null Date and Time
+`curl -s "http://localhost:8080/topjava/rest/profile/meals/filter?startDate=&endTime="`
