@@ -8,6 +8,20 @@ const ctx = {
     }
 }
 
+function enable(chekbox, id) {
+    var enabled = chekbox.is(":checked");
+    $.ajax({
+        url: userAjaxUrl + id,
+        type: "POST",
+        data: "enabled=" + enabled
+    }).done(function () {
+        chekbox.closest("tr").attr("user-enabled", enabled);
+        successNoty(enabled ? "Enabled" : "Disabled");
+    }).fail(function () {
+        $(chekbox).prop("checked", !enabled);
+    });
+}
+
 // $(document).ready(function () {
 $(function () {
     makeEditable(
