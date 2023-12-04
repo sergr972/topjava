@@ -27,7 +27,7 @@ tr[data-meal-excess="true"] {
     cursor: pointer;
 }
 
-tr[data-user-enabled="false"] {
+tr[user-enabled="false"] {
     opacity: 0.5;
 }
 
