@@ -11,8 +11,8 @@ const ctx = {
 function enable(chekbox, id) {
     var enabled = chekbox.is(":checked");
     $.ajax({
-        url: "GET" /userAjaxUrl + id,
-        // type: "GET"
+        url: userAjaxUrl + id,
+        type: "POST",
         data: "enabled=" + enabled
     }).done(function () {
         chekbox.closest("tr").attr("user-enabled", enabled);
