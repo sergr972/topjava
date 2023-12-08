@@ -20,6 +20,12 @@ import java.util.stream.Collectors;
 public class MealUIController extends AbstractMealController {
 
     @Override
+    @GetMapping("/{id}")
+    public Meal get(@PathVariable int id) {
+        return super.get(id);
+    }
+
+    @Override
     @GetMapping
     public List<MealTo> getAll() {
         return super.getAll();
