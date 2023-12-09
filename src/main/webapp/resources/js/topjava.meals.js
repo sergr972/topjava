@@ -31,7 +31,7 @@ $(function () {
                     "data": "dateTime",
                     "render": function (data, type) {
                         if (type === "display") {
-                            return data.replace('T', ' ')
+                            return data.replace('T', ' ').slice(0,-3)
                         }
                         return data;
                     }
